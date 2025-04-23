@@ -5,10 +5,29 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 const logo = require('../assets/onibuslogo.png');
 
 export default function LoginScreen({ navigation }) {
-  const [cpf, setCpf] = useState('');
+  // const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberLogin, setRememberLogin] = useState(false);
+
+  const login = async () => {
+    try {
+      const response = await fetch("http://localhost:1337/api/auth/local",{
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({ identifier: email, password })
+      });
+      const data = await response.json();
+      
+      if (response.status == 200) {
+        navigation.navigate('ManageCards');
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -17,15 +36,15 @@ export default function LoginScreen({ navigation }) {
 
       {/* Título */}
       <Text style={styles.title}>Bem-vindo de volta!</Text>
-      <Text style={styles.subtitle}>Digite seu CPF e senha</Text>
+      <Text style={styles.subtitle}>Digite seu E-mail e senha</Text>
 
-      {/* Campo de CPF */}
+      {/* Campo de E-mail */}
       <TextInput
         style={styles.input}
-        placeholder="CPF"
-        value={cpf}
-        onChangeText={setCpf}
-        keyboardType="numeric"
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
       />
 
       {/* Campo de Senha */}
@@ -38,7 +57,7 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Botão Entrar */}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ManageCards')}>
+      <TouchableOpacity style={styles.button} onPress={login}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
 

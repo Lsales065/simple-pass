@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Importe o hook de navegação
 
@@ -7,7 +7,7 @@ const logo = require('../assets/logo.png');
 
 const SplashScreen = () => {
   const navigation = useNavigation(); // Use o hook de navegação
-
+  
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.logo} />
@@ -17,7 +17,6 @@ const SplashScreen = () => {
       <TouchableOpacity 
         style={styles.button} 
         onPress={() => {
-          console.log('Botão Entrar pressionado'); // Verifique se o evento está sendo disparado
           navigation.navigate('Login'); // Redireciona para a tela de Login
         }}
       >

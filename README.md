@@ -7,5 +7,6 @@ Plataforma Mobile, para comprar e recarregar cartão de ônibus.
 [Figma](https://www.figma.com/design/0HdixZGXcMMcdglPY3QJVl/SIMPLE-PASS?node-id=0-1&t=1PtBVjkOX93C9mTl-1)
 
 > ## Tecnologias:
+- JavaScript
 - React Native
-- Strapi
+- Fastify

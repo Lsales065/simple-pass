@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function NotificationsScreen({ navigation }) {
+import { Container } from '../../components/Container';
+
+const NotificationsScreen = () => {
     return (
-        <View style={styles.container}>
+        <Container>
             {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
@@ -53,9 +55,9 @@ export default function NotificationsScreen({ navigation }) {
                     <Text style={styles.transactionValue}>R$ 6,75</Text>
                 </View>
             </View>
-        </View>
+        </Container>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -121,3 +123,5 @@ const styles = StyleSheet.create({
         color: '#000',
     },
 });
+
+export default NotificationsScreen;

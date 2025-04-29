@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Importação do ícone
 
-export default function PixConfirmationScreen({ navigation }) {
+const PixPaymentConfirmationScreen = () => {
     return (
         <View style={styles.container}>
             {/* Header */}
@@ -35,7 +35,9 @@ export default function PixConfirmationScreen({ navigation }) {
             </TouchableOpacity>
         </View>
     );
-}
+};
+
+export default PixPaymentConfirmationScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -92,4 +94,3 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
-('');

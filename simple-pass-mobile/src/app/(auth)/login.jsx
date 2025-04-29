@@ -24,7 +24,7 @@ const LoginScreen = () => {
             <View style={styles.form}>
                 <Input placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
                 <Input placeholder="Senha" value={password} onChangeText={setPassword} icon="eye-off" secureTextEntry />
-                <Button title="Entrar" />
+                <Button title="Entrar" onPress={() => router.replace('home')} />
                 <Checkbox title="Lembrar login" value={rememberLogin} onValueChange={setRememberLogin} />
             </View>
             <View style={styles.options}>

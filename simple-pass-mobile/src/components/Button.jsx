@@ -8,7 +8,7 @@ export const Button = ({ title, variant = 'contained', icon, ...rest }) => {
     return (
         <TouchableOpacity style={[styles.container, styles.variant[variant]]} {...rest}>
             {!!icon && <Ionicons style={styles.icon} name={icon} />}
-            <Text style={styles.text}>{title}</Text>
+            {!!title && <Text style={styles.text}>{title}</Text>}
         </TouchableOpacity>
     );
 };

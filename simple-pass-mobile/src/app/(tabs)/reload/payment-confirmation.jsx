@@ -1,15 +1,18 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 
-export default function CardPaymentConfirmationScreen({ navigation }) {
+const CardPaymentConfirmationScreen = () => {
+    const router = useRouter();
+
     return (
         <View style={styles.container}>
             {/* Ícone de Verificação Verde */}
             <View style={styles.checkIconContainer}>
-                <Image
-                    source={require('../assets/check-icon.png')} // Substitua pelo caminho correto da imagem
+                {/* <Image
+                    source={require('../../assets/check-icon.png')} // Substitua pelo caminho correto da imagem
                     style={styles.checkIcon}
-                />
+                /> */}
             </View>
 
             {/* Título e Subtítulo */}
@@ -18,12 +21,14 @@ export default function CardPaymentConfirmationScreen({ navigation }) {
             <Text style={styles.subtitle}>Você receberá um e-mail com os detalhes da transação.</Text>
 
             {/* Botão Voltar ao Início */}
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('ManageCards')}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.navigate('home')}>
                 <Text style={styles.backButtonText}>Voltar ao Início</Text>
             </TouchableOpacity>
         </View>
     );
-}
+};
+
+export default CardPaymentConfirmationScreen;
 
 const styles = StyleSheet.create({
     container: {

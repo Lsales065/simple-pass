@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function PaymentScreen({ navigation }) {
+import { Container } from '../../../components/Container';
+
+const PaymentScreen = () => {
     const [selectedMethod, setSelectedMethod] = useState(null); // Estado para armazenar o método selecionado
 
     return (
-        <View style={styles.container}>
+        <Container>
             {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
@@ -88,9 +90,9 @@ export default function PaymentScreen({ navigation }) {
                 <Text style={styles.continueButtonText}>Continuar</Text>
                 <FontAwesome name="chevron-right" size={20} color="#000" />
             </TouchableOpacity>
-        </View>
+        </Container>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -181,3 +183,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
+
+export default PaymentScreen;

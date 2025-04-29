@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function ManageCardsScreen({ navigation }) {
-    const [showBalance, setShowBalance] = useState(false); // Estado para controlar a exibição do saldo
+import * as theme from '../../../styles/theme';
+import { Header } from '../../../components/Header';
+import { Container } from '../../../components/Container';
+
+const HomeScreen = () => {
+    const router = useRouter();
+
+    const [showBalance, setShowBalance] = useState(false);
 
     return (
-        <View style={styles.container}>
-            {/* Header */}
-            <View style={styles.header}>
-                <MaterialIcons
-                    name="menu"
-                    size={30}
-                    color="#000"
-                    style={styles.menuIcon}
-                    onPress={() => navigation.navigate('Settings')} // Redireciona para a tela de configurações
-                />
-                <Text style={styles.title}>Gerenciar cartões</Text>
-            </View>
+        <Container>
+            <Header title="Gerenciar Cartões">
+                <View style={styles.headerButton}>
+                    <Ionicons name="menu" onPress={() => router.navigate('home/settings')} size={theme.scale(24)} />
+                </View>
+            </Header>
 
             {/* Saldo do Cartão */}
             <TouchableOpacity onPress={() => setShowBalance(!showBalance)} style={styles.balanceContainer}>
@@ -51,74 +52,32 @@ export default function ManageCardsScreen({ navigation }) {
                 <Text style={styles.notificationsTitle}>Notificações</Text>
                 <TouchableOpacity style={styles.notificationItem}>
                     <View style={styles.notificationContent}>
-                        <FontAwesome name="dollar" size={18} color="#000" />
+                        {/* <FontAwesome name="dollar" size={18} color="#000" /> */}
                         <View style={styles.notificationDetails}>
                             <Text style={styles.notificationTitle}>Notificação</Text>
                             <Text style={styles.notificationDescription}>Nome do cartão</Text>
                         </View>
                     </View>
-                    <FontAwesome name="arrow-up" size={18} color="#000" />
+                    {/* <FontAwesome name="arrow-up" size={18} color="#000" /> */}
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.notificationItem}>
                     <View style={styles.notificationContent}>
-                        <FontAwesome name="dollar" size={18} color="#000" />
+                        {/* <FontAwesome name="dollar" size={18} color="#000" /> */}
                         <View style={styles.notificationDetails}>
                             <Text style={styles.notificationTitle}>Notificação</Text>
                             <Text style={styles.notificationDescription}>Nome do cartão</Text>
                         </View>
                     </View>
-                    <FontAwesome name="arrow-down" size={18} color="#000" />
+                    {/* <FontAwesome name="arrow-down" size={18} color="#000" /> */}
                 </TouchableOpacity>
             </View>
-
-            {/* Barra de Navegação Inferior */}
-            <View style={styles.bottomNavigation}>
-                <TouchableOpacity style={styles.bottomNavItem}>
-                    <Ionicons name="home-outline" size={24} color="#000" />
-                    <Text style={styles.bottomNavItemText}>Lar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.bottomNavItem}
-                    onPress={() => navigation.navigate('Notifications')} // Redireciona para a tela de notificações
-                >
-                    <Ionicons name="notifications-outline" size={24} color="#000" />
-                    <Text style={styles.bottomNavItemText}>Notificações</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.bottomNavItem}
-                    onPress={() => navigation.navigate('Payment')} // Redireciona para a tela de pagamento
-                >
-                    <FontAwesome name="credit-card" size={24} color="#000" />
-                    <Text style={styles.bottomNavItemText}>Recarregar</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        </Container>
     );
-}
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#00BFFF',
-        padding: 24,
-    },
-    header: {
-        flexDirection: 'row', // Ícone à esquerda e título centralizado
-        alignItems: 'center',
-        marginBottom: 50,
-        marginVertical: 30,
-    },
-    menuIcon: {
-        marginRight: 16, // Espaçamento entre o ícone e o título
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#000',
-        flex: 1, // Ocupa o espaço restante para centralizar o título
-        textAlign: 'center',
-        marginBottom: 16, // Posiciona o título mais abaixo
-        marginVertical: 20,
+    headerButton: {
+        width: '100%',
     },
     balanceContainer: {
         marginBottom: 32,
@@ -256,3 +215,5 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
 });
+
+export default HomeScreen;

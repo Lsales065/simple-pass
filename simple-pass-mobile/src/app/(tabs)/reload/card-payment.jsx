@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
-export default function CardPaymentScreen({ navigation }) {
+import { Container } from '../../../components/Container';
+
+const CardPaymentScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
+        <Container>
             {/* Header */}
             <View style={styles.header}>
                 {/* Ícone de Voltar */}
@@ -35,9 +37,9 @@ export default function CardPaymentScreen({ navigation }) {
             <TouchableOpacity style={styles.confirmButton} onPress={() => navigation.navigate('CardPaymentConfirmation')}>
                 <Text style={styles.confirmButtonText}>Confirmar pagamento</Text>
             </TouchableOpacity>
-        </View>
+        </Container>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -92,3 +94,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
+
+export default CardPaymentScreen;

@@ -2,9 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function SettingsScreen({ navigation }) {
+import { Container } from '../../../components/Container';
+
+const SettingsScreen = () => {
     return (
-        <View style={styles.container}>
+        <Container>
             {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.title}>Perfil</Text>
@@ -62,9 +64,9 @@ export default function SettingsScreen({ navigation }) {
             >
                 <Text style={styles.logoutButtonText}>Sair</Text>
             </TouchableOpacity>
-        </View>
+        </Container>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -141,3 +143,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
+
+export default SettingsScreen;

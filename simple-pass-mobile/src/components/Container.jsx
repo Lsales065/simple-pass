@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import * as theme from '../styles/theme';
 
 export const Container = ({ children }) => {
-    return <View style={styles.container}>{children}</View>;
+    return <ScrollView contentContainerStyle={styles.container}>{children}</ScrollView>;
 };
 
 const styles = StyleSheet.create({

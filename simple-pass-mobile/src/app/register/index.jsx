@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import * as theme from '../../styles/theme';
 import { Input } from '../../components/Input';
 import { Checkbox } from '../../components/Checkbox';
 import { Button } from '../../components/Button';
 import { OrDivider } from '../../components/OrDivider';
+import { Container } from '../../components/Container';
+import { Header } from '../../components/Header';
 
 export default function SignupScreen() {
     const [cpf, setCpf] = useState('');
@@ -14,11 +16,8 @@ export default function SignupScreen() {
     const [rememberLogin, setRememberLogin] = useState(false);
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Cadastre-se</Text>
-                <Text style={styles.subtitle}>Insira seus dados para continuar</Text>
-            </View>
+        <Container>
+            <Header title="Cadastre-se" subtitle="Insira seus dados para continuar" />
 
             <View style={styles.form}>
                 <Input label="Insira seu CPF" placeholder="CPF" value={cpf} onChangeText={setCpf} />
@@ -38,33 +37,11 @@ export default function SignupScreen() {
             <OrDivider />
 
             <Button title="Entrar com o Google" variant="outlined" icon="logo-google" />
-        </View>
+        </Container>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        backgroundColor: theme.colors.background,
-        padding: theme.spacing.md,
-    },
-    header: {
-        width: '100%',
-        gap: theme.spacing.sm,
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: theme.fontSize.large,
-        color: theme.colors.secondary,
-        fontWeight: 'bold',
-    },
-    subtitle: {
-        fontSize: theme.fontSize.medium,
-        color: theme.colors.secondary,
-        textAlign: 'center',
-    },
     form: {
         width: '100%',
         gap: theme.spacing.md,

@@ -4,9 +4,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import * as theme from '../styles/theme';
 
-export const Button = ({ title, variant = 'contained', icon, ...rest }) => {
+export const Button = ({ title, variant = 'contained', icon, style, ...rest }) => {
     return (
-        <TouchableOpacity style={[styles.container, styles.variant[variant]]} {...rest}>
+        <TouchableOpacity style={[styles.container, styles.variant[variant], style]} {...rest}>
             {!!icon && <Ionicons style={styles.icon} name={icon} />}
             {!!title && <Text style={styles.text}>{title}</Text>}
         </TouchableOpacity>

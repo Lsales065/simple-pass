@@ -9,7 +9,6 @@ const PaymentScreen = () => {
 
     return (
         <Container>
-            {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                     <Text style={styles.backButtonText}>❮</Text>

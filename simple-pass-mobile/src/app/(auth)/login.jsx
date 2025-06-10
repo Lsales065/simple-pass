@@ -8,13 +8,20 @@ import { Checkbox } from '../../components/Checkbox';
 import * as theme from '../../styles/theme';
 import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
+import { useAuthContext } from '../../contexts/auth-context';
 
 const LoginScreen = () => {
+    const { login, loading } = useAuthContext();
+
     const router = useRouter();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberLogin, setRememberLogin] = useState(false);
+
+    const handleSubmit = async () => {
+        await login({ email, password });
+    };
 
     return (
         <Container>
@@ -24,7 +31,7 @@ const LoginScreen = () => {
             <View style={styles.form}>
                 <Input placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
                 <Input placeholder="Senha" value={password} onChangeText={setPassword} icon="eye-off" secureTextEntry />
-                <Button title="Entrar" onPress={() => router.replace('home')} />
+                <Button title="Entrar" loading={loading} onPress={handleSubmit} />
                 <Checkbox title="Lembrar login" value={rememberLogin} onValueChange={setRememberLogin} />
             </View>
             <View style={styles.options}>

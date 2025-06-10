@@ -1,14 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import * as theme from '../styles/theme';
 
-export const Button = ({ title, variant = 'contained', icon, style, ...rest }) => {
+export const Button = ({ title, variant = 'contained', icon, style, loading, ...rest }) => {
     return (
         <TouchableOpacity style={[styles.container, styles.variant[variant], style]} {...rest}>
-            {!!icon && <Ionicons style={styles.icon} name={icon} />}
-            {!!title && <Text style={styles.text}>{title}</Text>}
+            {!!icon && !loading && <Ionicons style={styles.icon} name={icon} />}
+            {!!title && !loading && <Text style={styles.text}>{title}</Text>}
+            {loading && <ActivityIndicator />}
         </TouchableOpacity>
     );
 };

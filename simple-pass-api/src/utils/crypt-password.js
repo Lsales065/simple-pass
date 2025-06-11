@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 
-const SALT = 12;
+const SALT = Number(process.env.SALT);
 
 /**
  * Hash password

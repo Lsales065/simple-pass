@@ -39,8 +39,6 @@ export const AuthContextProvider = ({ children }) => {
 
 export const useAuthContext = () => {
     const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('Need involve in AuthContextProvider');
-    }
+    if (!context) throw new Error('Envolve em um AuthContextProvider');
     return context;
 };

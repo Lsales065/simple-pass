@@ -130,3 +130,4 @@ build
 .strapi-cloud.json
 
 .DS_Store
+dev.db

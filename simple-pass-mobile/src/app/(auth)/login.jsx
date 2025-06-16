@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { useState } from 'react';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import { Button } from '../../components/Button';
@@ -11,17 +11,14 @@ import { Header } from '../../components/Header';
 import { useAuthContext } from '../../contexts/auth-context';
 
 const LoginScreen = () => {
-    const { login, loading } = useAuthContext();
+    const { login, loading, error } = useAuthContext();
 
     const router = useRouter();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [rememberLogin, setRememberLogin] = useState(false);
-
-    const handleSubmit = async () => {
-        await login({ email, password });
-    };
 
     return (
         <Container>
@@ -30,12 +27,20 @@ const LoginScreen = () => {
             </Header>
             <View style={styles.form}>
                 <Input placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
-                <Input placeholder="Senha" value={password} onChangeText={setPassword} icon="eye-off" secureTextEntry />
-                <Button title="Entrar" loading={loading} onPress={handleSubmit} />
+                <Input
+                    placeholder="Senha"
+                    value={password}
+                    onPressIcon={() => setShowPassword(!showPassword)}
+                    onChangeText={setPassword}
+                    icon={showPassword ? 'eye' : 'eye-off'}
+                    secureTextEntry={!showPassword}
+                />
+                <Button title="Entrar" loading={loading} onPress={() => login({ email, password })} />
+                {error && <Text style={styles.error}>{error}</Text>}
                 <Checkbox title="Lembrar login" value={rememberLogin} onValueChange={setRememberLogin} />
             </View>
             <View style={styles.options}>
-                <Button variant="text" title="Esqueceu sua senha?" onPress={() => router.navigate('recover-account')} />
+                {/* <Button variant="text" title="Esqueceu sua senha?" onPress={() => router.navigate('recover-account')} /> */}
                 <Button variant="text" title="Não tem uma conta? Inscreva-se" onPress={() => router.navigate('register')} />
             </View>
         </Container>
@@ -54,6 +59,9 @@ const styles = StyleSheet.create({
     options: {
         width: '100%',
         gap: theme.spacing.md,
+    },
+    error: {
+        color: theme.colors.red,
     },
 });
 

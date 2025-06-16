@@ -17,6 +17,7 @@ export default defineConfig([
             'no-undef': 'off',
             'react/prop-types': 'off',
             'prettier/prettier': 'error',
+            'react/react-in-jsx-scope': 'off',
         },
     },
 ]);

@@ -42,6 +42,7 @@ export const colors = {
     secondary: '#1E1E1E',
     green: '#22C55E',
     gray: '#D9D9D9',
+    red: '#E30000',
     lightGray: '#D9D9D980',
     darkGray: '#4E776B',
     white: '#FFFFFF',

@@ -1,5 +1,4 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -9,8 +8,15 @@ import { Container } from '../../../components/Container';
 import { Balance } from '../../../components/Balance';
 import { Card } from '../../../components/Card';
 import { NotificationCard } from '../../../components/NotificationCard';
+import { usePaymentContext } from '../../../contexts/payment-context';
+import { useAuthContext } from '../../../contexts/auth-context';
+import { useCardContext } from '../../../contexts/card-context';
 
 const HomeScreen = () => {
+    const { payments, loading: loadingPayment } = usePaymentContext();
+    const { card, loading: loadingCard } = useCardContext();
+    const { user, loading: loadingUser } = useAuthContext();
+
     const router = useRouter();
 
     return (
@@ -20,18 +26,17 @@ const HomeScreen = () => {
                     <Ionicons name="menu" onPress={() => router.navigate('home/settings')} size={theme.scale(24)} />
                 </View>
             </Header>
-            <Balance value={150} />
-            <Card />
+            {loadingCard || !card ? <ActivityIndicator /> : <Balance balance={card.balance} />}
+            {loadingCard || loadingUser || !card || !user ? <ActivityIndicator /> : <Card card={card} username={user.name} />}
             <View style={styles.notificationsContainer}>
                 <Text style={styles.notificationsTitle}>Notificações</Text>
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
-                <NotificationCard title={'Ônibus - Linha 123'} description={'Nome do cartão'} />
+                {loadingPayment || !payments ? (
+                    <ActivityIndicator />
+                ) : (
+                    payments.map((item) => (
+                        <NotificationCard key={item.id} title={`Pagamento - ${item.method}`} description={`R$ ${item.value}`} />
+                    ))
+                )}
             </View>
         </Container>
     );

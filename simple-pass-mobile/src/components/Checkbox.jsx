@@ -1,4 +1,3 @@
-import React from 'react';
 import CheckboxExpo from 'expo-checkbox';
 import { StyleSheet, Text, View } from 'react-native';
 

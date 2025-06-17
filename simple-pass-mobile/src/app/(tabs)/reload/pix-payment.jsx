@@ -1,7 +1,7 @@
-import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Importação do ícone
 
+// TODO: implementar tela depois
 const PixPaymentConfirmationScreen = () => {
     return (
         <View style={styles.container}>

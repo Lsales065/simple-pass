@@ -1,5 +1,4 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -7,8 +6,11 @@ import * as theme from '../../styles/theme';
 import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import { TransactionCard } from '../../components/TransactionCard';
+import { usePaymentContext } from '../../contexts/payment-context';
 
 const NotificationsScreen = () => {
+    const { payments, loading } = usePaymentContext();
+
     const router = useRouter();
 
     return (
@@ -25,10 +27,13 @@ const NotificationsScreen = () => {
 
             <View style={styles.paymentHistoryContainer}>
                 <Text style={styles.paymentHistoryTitle}>Histórico de pagamento</Text>
-                <TransactionCard label="Transações" value="50,00" />
-                <TransactionCard label="Transações" value="50,00" />
-                <TransactionCard label="Transações" value="50,00" />
-                <TransactionCard label="Transações" value="50,00" />
+                {loading || !payments ? (
+                    <ActivityIndicator />
+                ) : (
+                    payments.map((item) => (
+                        <TransactionCard key={item.id} label={`Transação: ${item.method}`} value={item.value} />
+                    ))
+                )}
             </View>
         </Container>
     );

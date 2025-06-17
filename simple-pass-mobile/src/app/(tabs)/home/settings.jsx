@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
@@ -8,8 +7,11 @@ import { Container } from '../../../components/Container';
 import { Header } from '../../../components/Header';
 import { SettingsCard } from '../../../components/SettingsCard';
 import { Button } from '../../../components/Button';
+import { useAuthContext } from '../../../contexts/auth-context';
 
 const SettingsScreen = () => {
+    const { logout, user } = useAuthContext();
+
     const router = useRouter();
 
     return (
@@ -29,7 +31,7 @@ const SettingsScreen = () => {
                 <View style={styles.info}>
                     <Ionicons name="person-circle" size={theme.scale(40)} />
                     <View style={styles.userInfo}>
-                        <Text style={styles.userName}>Luiza Marinho</Text>
+                        <Text style={styles.userName}>{user?.name || ''}</Text>
                         <Text style={styles.userEmail}>Usuário Simple pass</Text>
                     </View>
                 </View>
@@ -42,7 +44,7 @@ const SettingsScreen = () => {
                 <SettingsCard iconLeft="card" title="Métodos de Pagamento" iconRight="arrow-forward" />
                 <SettingsCard iconLeft="shield-checkmark" title="Segurança" iconRight="arrow-forward" />
                 <SettingsCard iconLeft="help-circle" title="Central de Ajuda" iconRight="arrow-forward" />
-                <Button variant="text" title="Sair" />
+                <Button variant="text" title="Sair" onPress={() => logout()} />
             </View>
         </Container>
     );

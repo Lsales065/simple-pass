@@ -1,8 +1,8 @@
-import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
 import { Container } from '../../../components/Container';
 
+// TODO: implementar tela depois
 const CardPaymentScreen = ({ navigation }) => {
     return (
         <Container>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
 import * as theme from '../styles/theme';

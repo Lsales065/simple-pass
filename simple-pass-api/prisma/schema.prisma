@@ -26,6 +26,8 @@ model User {
 model Card {
     id      String @id @unique @default(uuid())
     balance Float  @default(0)
+    code    Int    @unique
+    type    String @default("ESTUDANTE")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

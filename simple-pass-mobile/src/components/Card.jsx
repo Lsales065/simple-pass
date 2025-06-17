@@ -1,15 +1,14 @@
-import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import * as theme from '../styles/theme';
 
-export const Card = ({ cardType = 'ESTUDANTE', title = 'CARTÃO TRANSPORTE', icon = 'person' }) => {
+export const Card = ({ title = 'CARTÃO TRANSPORTE', icon = 'person', card, username }) => {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.cardBackground}>
                 <View style={styles.cardType}>
-                    <Text style={styles.cardTypeName}>{cardType}</Text>
+                    <Text style={styles.cardTypeName}>{card.type}</Text>
                     <View style={styles.circle} />
                 </View>
             </View>
@@ -19,8 +18,8 @@ export const Card = ({ cardType = 'ESTUDANTE', title = 'CARTÃO TRANSPORTE', ico
                     <Text style={styles.cardTitle}>{title}</Text>
                 </View>
                 <View>
-                    <Text style={styles.userName}>Nome do Usuário</Text>
-                    <Text style={styles.userNumber}>Número do Cartão</Text>
+                    <Text style={styles.userName}>Usuário: {username}</Text>
+                    <Text style={styles.userNumber}>Número do cartão: {card.code}</Text>
                 </View>
             </View>
         </View>

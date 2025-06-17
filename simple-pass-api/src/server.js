@@ -60,7 +60,12 @@ fastify.post('/user/register', async (request, response) => {
     const hashedPassword = await hashPassword(password);
     const userCreated = await prisma.user.create({ data: { cpf, name, email, password: hashedPassword } });
 
-    await prisma.card.create({ data: { userId: userCreated.id } });
+    await prisma.card.create({
+        data: {
+            userId: userCreated.id,
+            code: Math.floor(Math.random() * 900000000) + 100000000,
+        },
+    });
 
     const accessToken = await response.jwtSign({ userId: userCreated.id }, { expiresIn: '1d' });
     response.setCookie('token', accessToken, {
@@ -130,7 +135,13 @@ fastify.post('/payment', { preHandler: [fastify.authenticate] }, async (request,
         prisma.payment.create({ data: { userId, value, method: paymentMethod } }),
         prisma.card.update({ where: { userId }, data: { balance: { increment: value } } }),
     ]);
-    return response.status(201).send({ error: 'Pagamento realizado com sucesso.' });
+    return response.status(201).send({ message: 'Pagamento realizado com sucesso.' });
+});
+
+fastify.get('/payments', { preHandler: [fastify.authenticate] }, async (request, response) => {
+    const userId = request.user.userId;
+    const payments = await prisma.payment.findMany({ where: { userId } });
+    return response.status(200).send({ payments });
 });
 
 fastify

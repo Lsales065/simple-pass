@@ -10,7 +10,7 @@ import { Button } from '../../../components/Button';
 import { useAuthContext } from '../../../contexts/auth-context';
 
 const SettingsScreen = () => {
-    const { logout } = useAuthContext();
+    const { logout, user } = useAuthContext();
 
     const router = useRouter();
 
@@ -31,7 +31,7 @@ const SettingsScreen = () => {
                 <View style={styles.info}>
                     <Ionicons name="person-circle" size={theme.scale(40)} />
                     <View style={styles.userInfo}>
-                        <Text style={styles.userName}>Luiza Marinho</Text>
+                        <Text style={styles.userName}>{user?.name || ''}</Text>
                         <Text style={styles.userEmail}>Usuário Simple pass</Text>
                     </View>
                 </View>

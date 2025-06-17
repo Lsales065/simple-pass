@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8080';
+import { env } from '../config/env';
 
 const AuthContext = createContext({});
 
@@ -14,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
         // verifica se já está logado
         const checkAuth = async () => {
             try {
-                const response = await fetch(`${API_URL}/user/me`, {
+                const response = await fetch(`${env.apiUrl}/user/me`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -37,7 +37,7 @@ export const AuthContextProvider = ({ children }) => {
         try {
             setLoading(true);
 
-            const response = await fetch(`${API_URL}/user/login`, {
+            const response = await fetch(`${env.apiUrl}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export const AuthContextProvider = ({ children }) => {
         try {
             setLoading(true);
 
-            const response = await fetch(`${API_URL}/user/register`, {
+            const response = await fetch(`${env.apiUrl}/user/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await fetch(`${API_URL}/user/logout`, {
+            await fetch(`${env.apiUrl}/user/logout`, {
                 method: 'POST',
                 credentials: 'include',
             });

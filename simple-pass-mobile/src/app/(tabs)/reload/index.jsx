@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
@@ -8,10 +8,15 @@ import { Container } from '../../../components/Container';
 import { Header } from '../../../components/Header';
 import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
+import { usePaymentContext } from '../../../contexts/payment-context';
 
 const PaymentScreen = () => {
+    const { registerPayment, loading } = usePaymentContext();
+
     const router = useRouter();
+
     const [selectedMethod, setSelectedMethod] = useState(null);
+    const [value, setValue] = useState('');
 
     return (
         <Container>
@@ -26,33 +31,35 @@ const PaymentScreen = () => {
                 </View>
             </Header>
             <View style={styles.form}>
-                <Input label="Nome do Destinatário" icon="person" placeholder="Digite o nome completo" />
-                <Input label="Valor" icon="logo-usd" placeholder="R$0,00" />
+                <Input label="Valor" value={value} onChangeText={setValue} icon="logo-usd" placeholder="R$0,00" />
             </View>
             <View style={styles.payments}>
                 <Text style={styles.paymentsTitle}>Métodos de Pagamento</Text>
                 <Button
                     title="Pix"
                     icon="qr-code"
-                    style={{ backgroundColor: selectedMethod === 'pix' ? theme.colors.green : theme.colors.primary }}
-                    onPress={() => setSelectedMethod('pix')}
+                    style={{ backgroundColor: selectedMethod === 'PIX' ? theme.colors.green : theme.colors.primary }}
+                    onPress={() => setSelectedMethod('PIX')}
                 />
                 <Button
                     title="Cartão"
                     icon="card"
-                    style={{ backgroundColor: selectedMethod === 'card' ? theme.colors.green : theme.colors.primary }}
-                    onPress={() => setSelectedMethod('card')}
+                    style={{ backgroundColor: selectedMethod === 'CREDIT' ? theme.colors.green : theme.colors.primary }}
+                    onPress={() => setSelectedMethod('CREDIT')}
                 />
 
                 <Button
                     title="Continuar"
                     icon="arrow-forward"
-                    onPress={() => {
+                    loading={loading}
+                    onPress={async () => {
                         if (selectedMethod) {
-                            if (selectedMethod === 'pix') {
-                                router.navigate('reload/pix-payment');
-                            } else if (selectedMethod === 'card') {
-                                router.navigate('reload/card-payment');
+                            const result = await registerPayment({
+                                paymentMethod: selectedMethod,
+                                value: Number(value),
+                            });
+                            if (result) {
+                                router.navigate('home');
                             }
                         }
                     }}

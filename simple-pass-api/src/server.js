@@ -11,7 +11,7 @@ import { validCPF } from './utils/valid-cpf.js';
 const PORT = process.env.PORT;
 const SECRET = process.env.JWT_SECRET;
 
-const fastify = Fastify();
+const fastify = Fastify({ logger: true });
 
 fastify.register(fCors, {
     origin: (_, cb) => {
@@ -145,6 +145,6 @@ fastify.get('/payments', { preHandler: [fastify.authenticate] }, async (request,
 });
 
 fastify
-    .listen({ port: PORT })
-    .then(console.log(`Server running in: ${PORT} `))
+    .listen({ port: PORT, host: '0.0.0.0' })
+    .then(console.log(`Server running in: http://localhost:${PORT} `))
     .catch(console.error);
